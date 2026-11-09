@@ -1,0 +1,127 @@
+{
+  "version": "2.0",
+  "updatedAt": "2026-11-09",
+  "notice": "Programa en preparación. Horarios, habitaciones, rutas y salida de running pendientes de confirmar. No hay horas de ejemplo.",
+  "event": {
+    "name": "PRORUNNERS BARCELONA · STAGE TRIATLÓ 2027",
+    "club": "PRORUNNERS BARCELONA",
+    "website": "https://www.prorunners.es",
+    "timezone": "Europe/Madrid",
+    "end": "2027-05-24T00:00:00+02:00"
+  },
+  "days": [
+    {
+      "date": "2027-05-21",
+      "label": "Viernes 21 de mayo",
+      "activities": [
+        {
+          "id": "viernes-bienvenida",
+          "title": "Llegada y bienvenida",
+          "start": null,
+          "description": "Hora y detalles pendientes de confirmar.",
+          "discipline": null,
+          "locationId": null,
+          "provisional": true,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "date": "2027-05-22",
+      "label": "Sábado 22 de mayo",
+      "activities": [
+        {
+          "id": "sabado-entrenamientos",
+          "title": "Entrenamientos y comidas",
+          "start": null,
+          "description": "Programa horario pendiente de recibir. Las sesiones y comidas se detallarán cuando las confirme la organización.",
+          "discipline": null,
+          "locationId": null,
+          "provisional": true,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "date": "2027-05-23",
+      "label": "Domingo 23 de mayo",
+      "activities": [
+        {
+          "id": "domingo-entrenamiento",
+          "title": "Entrenamiento y salida",
+          "start": null,
+          "description": "Programa horario y detalles de salida pendientes de recibir.",
+          "discipline": null,
+          "locationId": null,
+          "provisional": true,
+          "cancelled": false
+        }
+      ]
+    }
+  ],
+  "rooms": [],
+  "routes": [
+    {
+      "id": "ruta-1",
+      "name": "Ruta 1",
+      "discipline": "Ciclismo",
+      "description": "Distancia, desnivel y track GPX pendientes.",
+      "distanceKm": null,
+      "elevationM": null,
+      "trackUrl": null,
+      "mapUrl": null,
+      "provisional": true
+    },
+    {
+      "id": "ruta-2",
+      "name": "Ruta 2",
+      "discipline": "Ciclismo",
+      "description": "Distancia, desnivel y track GPX pendientes.",
+      "distanceKm": null,
+      "elevationM": null,
+      "trackUrl": null,
+      "mapUrl": null,
+      "provisional": true
+    },
+    {
+      "id": "ruta-3",
+      "name": "Ruta 3",
+      "discipline": "Ciclismo",
+      "description": "Distancia, desnivel y track GPX pendientes.",
+      "distanceKm": null,
+      "elevationM": null,
+      "trackUrl": null,
+      "mapUrl": null,
+      "provisional": true
+    }
+  ],
+  "locations": [
+    {
+      "id": "casa",
+      "name": "Casa del stage",
+      "description": "Alojamiento y punto de referencia del grupo.",
+      "address": null,
+      "mapUrl": "https://maps.app.goo.gl/Q5JdUtFHjQ7tgmNQ9?g_st=ic",
+      "icon": "bed",
+      "provisional": false
+    },
+    {
+      "id": "natacion",
+      "name": "Club Natació Banyoles · Estany de Banyoles",
+      "description": "Lugar de natación. Confirma con la organización el acceso y las indicaciones de cada sesión.",
+      "address": "Passeig Antoni Gaudí, 3 · 17820 Banyoles, Girona.",
+      "mapUrl": "https://maps.app.goo.gl/VuG3ZGPwCd4tVuA29?g_st=ic",
+      "icon": "swim",
+      "provisional": false
+    },
+    {
+      "id": "running",
+      "name": "Punto de salida de running",
+      "description": "Pendiente de confirmar. No hay todavía una ubicación de salida.",
+      "address": null,
+      "mapUrl": null,
+      "icon": "run",
+      "provisional": true
+    }
+  ]
+}

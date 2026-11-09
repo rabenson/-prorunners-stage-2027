@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111114">
+  <meta name="description" content="Agenda, alojamiento, rutas y puntos de encuentro del PRORUNNERS BARCELONA · STAGE TRIATLÓ 2027. Del 21 al 23 de mayo.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>PRORUNNERS BARCELONA · STAGE TRIATLÓ 2027</title>
+  <script src="./assets/qrcode.min.js" defer></script>
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#inicio" aria-label="PRORUNNERS BARCELONA, inicio">
+        <img src="./assets/prorunners-logo.svg" alt="Logotipo oficial de PRORUNNERS" width="1072" height="446">
+        <span>BARCELONA</span>
+      </a>
+      <div class="topbar-actions">
+        <span class="edition">STAGE / 2027</span>
+        <button class="button button-outline button-small" id="share-button" type="button">Compartir <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="connection-banner" id="connection-banner" role="status" hidden>Sin conexión. Esta app necesita internet para consultar información actualizada y abrir mapas.</div>
+  <div class="error-banner" id="data-error" role="alert" hidden>
+    <span id="data-error-text"></span>
+    <button class="button button-small" id="retry-data" type="button">Reintentar</button>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <section class="panel active" id="inicio" aria-labelledby="home-title">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="brand-dot"></span> PRORUNNERS BARCELONA</p>
+          <h1 id="home-title"><span>STAGE</span><span>TRIATLÓ<span class="coral">.</span></span><span class="hero-year">2027</span></h1>
+          <p class="hero-dates">21, 22 Y 23 <span>DE MAYO</span></p>
+          <p class="hero-intro">Tres días. Un equipo.<br>Natación, ciclismo y running para compartir mucho más que kilómetros.</p>
+          <div class="hero-disciplines" aria-label="Natación, ciclismo y running">
+            <span><svg class="icon" aria-hidden="true"><use href="#i-swim"></use></svg> SWIM</span>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-bike"></use></svg> BIKE</span>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-run"></use></svg> RUN</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="track-ring ring-one"></div><div class="track-ring ring-two"></div><div class="track-ring ring-three"></div>
+          <img src="./assets/prorunners-symbol-original.png" alt="" width="2016" height="2017">
+          <span class="art-label">ENTRENAMOS JUNTOS.</span>
+          <span class="art-number">03 <small>DÍAS</small></span>
+        </div>
+      </div>
+      <div class="content home-content">
+        <div class="home-lead">
+          <div class="next-card" aria-labelledby="next-label">
+            <div class="next-top"><p class="eyebrow" id="next-label"><span class="brand-dot"></span> Próxima actividad</p><span class="badge" id="next-badge">Cargando</span></div>
+            <div id="next-activity" aria-live="polite"><h2>Consultando la agenda…</h2></div>
+          </div>
+          <aside class="stage-note">
+            <span class="note-number">01—03</span>
+            <h2>Tu fin de semana,<br>en un solo lugar.</h2>
+            <p>Consulta la planificación y el punto de encuentro antes de cada entrenamiento.</p>
+            <span class="status-label" id="home-status">Información en preparación</span>
+          </aside>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">TODO EL STAGE, A MANO</p><h2>¿Dónde vamos?</h2></div><span class="heading-note">Información para participantes</span></div>
+        <div class="quick">
+          <a class="quick-card" data-tab="agenda" href="#agenda"><span class="quick-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg></span><span class="quick-number">01 <span aria-hidden="true">↗</span></span><h3>Agenda</h3><p>El programa de los tres días</p></a>
+          <a class="quick-card" data-tab="habitaciones" href="#habitaciones"><span class="quick-icon"><svg class="icon" aria-hidden="true"><use href="#i-bed"></use></svg></span><span class="quick-number">02 <span aria-hidden="true">↗</span></span><h3>Habitaciones</h3><p>El alojamiento y el grupo</p></a>
+          <a class="quick-card" data-tab="rutas" href="#rutas"><span class="quick-icon"><svg class="icon" aria-hidden="true"><use href="#i-bike"></use></svg></span><span class="quick-number">03 <span aria-hidden="true">↗</span></span><h3>Rutas</h3><p>Recorridos y tracks</p></a>
+          <a class="quick-card" data-tab="lugares" href="#lugares"><span class="quick-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg></span><span class="quick-number">04 <span aria-hidden="true">↗</span></span><h3>Lugares de interés</h3><p>Mapas y puntos de encuentro</p></a>
+        </div>
+        <div class="notice" id="home-notice"><svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg><div><strong>Programa en preparación.</strong> Horarios, habitaciones, rutas y salida de running pendientes de confirmar. No hay horas de ejemplo.</div></div>
+        <div class="install-strip"><div><strong>Lleva el stage en tu móvil.</strong><p>Instálalo desde el navegador. Sin tiendas de aplicaciones.</p></div><button class="button button-outline" id="install-button" type="button">Cómo instalar <span aria-hidden="true">+</span></button></div>
+      </div>
+    </section>
+
+    <section class="panel content" id="agenda" aria-labelledby="agenda-title" hidden>
+      <div class="page-heading"><p class="eyebrow">01 / PROGRAMA DEL STAGE</p><h1 id="agenda-title">Tres días.<br><span class="coral">Todo por compartir.</span></h1><p>Viernes 21, sábado 22 y domingo 23 de mayo de 2027.<br>Las horas se muestran en la zona de Barcelona (Europe/Madrid).</p></div>
+      <div class="notice" id="agenda-notice"><svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg><div><strong>Agenda provisional.</strong> Mantiene los bloques de la primera versión. Los horarios, disciplinas y detalles aún no están confirmados.</div></div>
+      <div class="day-nav" aria-label="Ir a un día de la agenda">
+        <a href="#agenda" data-day="2027-05-21"><span>VIE</span><strong>21</strong><small>MAYO</small></a>
+        <a href="#agenda" data-day="2027-05-22"><span>SÁB</span><strong>22</strong><small>MAYO</small></a>
+        <a href="#agenda" data-day="2027-05-23"><span>DOM</span><strong>23</strong><small>MAYO</small></a>
+      </div>
+      <div id="agenda-list"><p class="muted">Cargando la agenda…</p></div>
+    </section>
+
+    <section class="panel content" id="habitaciones" aria-labelledby="rooms-title" hidden>
+      <div class="page-heading"><p class="eyebrow">02 / DESCANSAR TAMBIÉN ES ENTRENAR</p><h1 id="rooms-title">Nuestro<br><span class="coral">campamento base.</span></h1><p>Habitaciones, camas y distribución del grupo.</p></div>
+      <div class="notice"><svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg><div><strong>Cuida la privacidad del grupo.</strong> Esta web es pública si se aloja en GitHub Pages. Un enlace o QR no limita el acceso. Usa alias o códigos de participantes, nunca datos personales sensibles.</div></div>
+      <div id="rooms-list"><p class="muted">Cargando el alojamiento…</p></div>
+    </section>
+
+    <section class="panel content" id="rutas" aria-labelledby="routes-title" hidden>
+      <div class="page-heading"><p class="eyebrow">03 / SUMAMOS KILÓMETROS</p><h1 id="routes-title">El recorrido<br><span class="coral">lo hacemos juntos.</span></h1><p>Las tres rutas ciclistas de la v1 siguen aquí. Se completarán con sus distancias, desniveles y tracks.</p></div>
+      <div class="notice"><svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg><div><strong>Confirma la ruta antes de salir.</strong> Los recorridos pendientes no son rutas utilizables. Revisa siempre el track y las indicaciones de la organización.</div></div>
+      <div class="card-grid" id="routes-list"><p class="muted">Cargando las rutas…</p></div>
+    </section>
+
+    <section class="panel content" id="lugares" aria-labelledby="places-title" hidden>
+      <div class="page-heading"><p class="eyebrow">04 / NOS VEMOS AQUÍ</p><h1 id="places-title">Nuestros<br><span class="coral">puntos de encuentro.</span></h1><p>Casa del stage, natación y salida de running. Abre las ubicaciones directamente en Google Maps.</p></div>
+      <div class="card-grid places-grid" id="places-list"><p class="muted">Cargando los lugares…</p></div>
+    </section>
+
+    <footer class="footer content"><div><strong>PRORUNNERS BARCELONA</strong><span>STAGE TRIATLÓ 2027 · 21—23 MAYO</span></div><a href="https://www.prorunners.es" target="_blank" rel="noopener noreferrer">Web del club <span aria-hidden="true">↗</span></a><p id="data-version">Versión 2 · Datos en preparación</p></footer>
+  </main>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <div class="navin">
+      <a class="active" href="#inicio" data-tab="inicio" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Inicio</span></a>
+      <a href="#agenda" data-tab="agenda"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>Agenda</span></a>
+      <a href="#habitaciones" data-tab="habitaciones"><svg class="icon" aria-hidden="true"><use href="#i-bed"></use></svg><span>Habitaciones</span></a>
+      <a href="#rutas" data-tab="rutas"><svg class="icon" aria-hidden="true"><use href="#i-bike"></use></svg><span>Rutas</span></a>
+      <a href="#lugares" data-tab="lugares"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Lugares</span></a>
+    </div>
+  </nav>
+
+  <dialog id="share-dialog" aria-labelledby="share-title">
+    <div class="dialog-head"><p class="eyebrow">JUNTOS DESDE EL PRIMER CLIC</p><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div>
+    <h2 id="share-title">Comparte el stage.</h2>
+    <p>Un enlace. Todo el fin de semana.</p>
+    <p class="notice" id="share-warning" hidden>Esta dirección es de prueba local. Publica en GitHub Pages y genera el QR desde la dirección HTTPS definitiva.</p>
+    <canvas id="share-qr" width="328" height="328" role="img" aria-label="Código QR del enlace de esta aplicación"></canvas>
+    <label class="field-label" for="share-url">Enlace de la aplicación</label>
+    <input id="share-url" type="url" readonly>
+    <div class="dialog-actions"><button class="button" id="copy-link" type="button">Copiar enlace</button><button class="button button-outline" id="download-qr" type="button">Descargar QR</button><button class="button button-outline" id="native-share" type="button" hidden>Compartir…</button></div>
+    <p class="dialog-message" id="share-message" role="status"></p>
+  </dialog>
+
+  <dialog id="install-dialog" aria-labelledby="install-title">
+    <div class="dialog-head"><p class="eyebrow">EL STAGE EN TU PANTALLA</p><button class="close-button" type="button" data-close aria-label="Cerrar">×</button></div>
+    <h2 id="install-title">Instala la aplicación.</h2>
+    <p>Necesitas abrir la dirección HTTPS publicada en un navegador, no dentro de WhatsApp o Instagram.</p>
+    <div class="instruction"><strong>iPhone / iPad · Safari</strong><p>Abre el enlace, toca Compartir y elige «Añadir a pantalla de inicio». Activa «Abrir como app» si aparece y pulsa «Añadir».</p></div>
+    <div class="instruction"><strong>Android · Chrome</strong><p>Abre el enlace y el menú ⋮. Elige «Instalar aplicación» o «Añadir a pantalla de inicio» (el nombre depende de la versión).</p></div>
+    <div class="instruction"><strong>Ordenador · Chrome / Edge</strong><p>Usa el icono de instalación de la barra de direcciones o la opción de instalar del menú del navegador.</p></div>
+    <div class="notice">La app necesita internet. No almacena mapas ni información para uso offline.</div>
+    <button class="button" id="install-now" type="button" hidden>Instalar ahora</button>
+    <p class="dialog-message" id="install-message" role="status"></p>
+  </dialog>
+
+  <noscript><div class="noscript"><strong>Activa JavaScript para consultar la aplicación.</strong><p>La agenda, las habitaciones, las rutas y el QR necesitan JavaScript.</p><a href="https://maps.app.goo.gl/Q5JdUtFHjQ7tgmNQ9?g_st=ic">Casa del stage · Google Maps</a><br><a href="https://maps.app.goo.gl/VuG3ZGPwCd4tVuA29?g_st=ic">Natación · Google Maps</a></div></noscript>
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v5m10-5v5M3 11h18m-13 4h2m4 0h2m-8 3h2"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 20V8h18v12M3 17h18M6 8V4h12v4M3 13h18m-14 0v-3h4v3m2 0v-3h4v3"/></symbol>
+    <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="5" cy="17" r="4"/><circle cx="19" cy="17" r="4"/><path d="m5 17 5-9 5 9H5m10 0 4-9m-2-4h3l-1 4H8m0-3h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-swim" viewBox="0 0 24 24"><circle cx="17" cy="5" r="2"/><path d="m4 13 6-5 5 4m-5-4L6 4H2m0 13c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 21c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><circle cx="15" cy="4" r="2"/><path d="m5 11 4-4 5 2-3 6 4 6m-4-6-4 5H3m11-11 3 4h4"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14"/></symbol>
+    <symbol id="i-group" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-4a6 6 0 0 1 12 0v4m0-17a3 3 0 0 1 0 6m4 11v-4a6 6 0 0 0-2-4"/></symbol>
+  </svg>
+</body>
+</html>
