@@ -1,0 +1,307 @@
+content:
+  - name: evento
+    label: Programa, habitaciones, rutas y lugares
+    type: file
+    path: data/evento.json
+    format: json
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: version
+        label: Versión de los contenidos
+        type: string
+        required: true
+        description: Texto como 2.0 o 2.1; no es la versión del CMS.
+      - name: updatedAt
+        label: Fecha de revisión
+        type: date
+        required: true
+        default: ""
+        options:
+          format: yyyy-MM-dd
+        description: Actualízala cuando revises los contenidos.
+      - name: notice
+        label: Aviso de Inicio
+        type: text
+        description: Déjalo vacío para retirar el aviso. No escribas la palabra null.
+      - name: event
+        label: Datos del stage
+        type: object
+        required: true
+        fields:
+          - name: name
+            label: Nombre del evento
+            type: string
+            required: true
+          - name: club
+            label: Club
+            type: string
+            required: true
+          - name: website
+            label: Web oficial
+            component: enlace-https
+            required: true
+          - name: timezone
+            label: Zona horaria
+            type: string
+            required: true
+            readonly: true
+            default: Europe/Madrid
+          - name: end
+            label: Fin del evento
+            type: string
+            required: true
+            readonly: true
+            default: "2027-05-24T00:00:00+02:00"
+      - name: days
+        label: Agenda por jornadas
+        type: object
+        required: true
+        list:
+          min: 3
+          max: 3
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        description: Conserva las tres jornadas del 21, 22 y 23 de mayo de 2027. Añade planes dentro de Actividades, no nuevas jornadas.
+        fields:
+          - name: date
+            label: Fecha de la jornada
+            type: date
+            required: true
+            readonly: true
+            default: ""
+            options:
+              format: yyyy-MM-dd
+              min: "2027-05-21"
+              max: "2027-05-23"
+          - name: label
+            label: Nombre de la jornada
+            type: string
+            required: true
+          - name: activities
+            label: Actividades y planes
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: id
+                component: identificador
+                description: Único entre las actividades de las tres jornadas. No cambies los identificadores existentes sin necesidad.
+              - name: title
+                label: Título del plan
+                type: string
+                required: true
+              - name: start
+                label: Fecha y hora reales de inicio (Barcelona)
+                type: date
+                default: ""
+                description: Déjalo vacío si la hora no está confirmada. La fecha debe coincidir con la jornada. Se guarda con +02:00, aunque edites desde otra zona horaria.
+                options:
+                  time: true
+                  format: "yyyy-MM-dd'T'HH:mm':00+02:00'"
+                  min: "2027-05-21T00:00"
+                  max: "2027-05-23T23:59"
+                  step: 60
+              - name: description
+                component: descripcion
+              - name: discipline
+                component: disciplina
+                description: Elige Pendiente de confirmar para quitar una disciplina ya seleccionada.
+                options:
+                  placeholder: Pendiente de confirmar
+                  values:
+                    - name: ""
+                      label: Pendiente de confirmar
+                    - Natación
+                    - Ciclismo
+                    - Running
+                    - Triatlón
+                    - Comida
+                    - Descanso
+                    - Organización
+              - name: locationId
+                label: Identificador del lugar
+                type: string
+                pattern:
+                  regex: "^([a-z0-9-]+)?$"
+                  message: Usa el identificador de un lugar existente, en minúsculas, números y guiones.
+                description: casa, natacion, running o el ID de otro lugar que hayas añadido. Vacío significa ubicación pendiente. Crea el lugar antes de enlazarlo.
+              - name: provisional
+                component: provisional
+              - name: cancelled
+                label: Actividad cancelada
+                type: boolean
+                required: true
+                default: false
+                description: Sigue visible en Agenda, pero no cuenta como próxima actividad.
+      - name: rooms
+        label: Habitaciones
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        description: Coordinación manual, no reservas. Todo es público, también el historial; usa solo alias o códigos autorizados.
+        fields:
+          - name: id
+            component: identificador
+          - name: name
+            label: Nombre de la habitación
+            type: string
+            required: true
+          - name: capacity
+            label: Plazas confirmadas
+            type: number
+            default: ""
+            options:
+              min: 1
+              step: 1
+            description: Entero positivo o vacío si está pendiente. No puede haber más ocupantes que plazas confirmadas.
+          - name: occupants
+            label: Alias o códigos de ocupantes
+            type: string
+            list: true
+            description: Un alias por elemento. Deja la lista vacía si no hay asignaciones.
+          - name: notes
+            label: Notas y tipos de camas
+            type: text
+          - name: provisional
+            component: provisional
+      - name: routes
+        label: Rutas
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: id
+            component: identificador
+          - name: name
+            label: Nombre de la ruta
+            type: string
+            required: true
+          - name: discipline
+            component: disciplina
+            required: true
+          - name: description
+            component: descripcion
+          - name: distanceKm
+            label: Distancia en kilómetros
+            type: number
+            default: ""
+            options:
+              min: 0
+              step: any
+            description: Número sin unidades; vacío si está pendiente. Cero es un dato válido.
+          - name: elevationM
+            label: Desnivel positivo en metros
+            type: number
+            default: ""
+            options:
+              min: 0
+              step: any
+          - name: trackUrl
+            label: Enlace al track GPX
+            type: string
+            pattern:
+              regex: '^(https://[^\s\\]+|tracks/[a-zA-Z0-9_-]+\.gpx)?$'
+              message: Usa una URL HTTPS o tracks/nombre.gpx.
+            description: Vacío si está pendiente. Para una ruta local, sube antes el GPX real a tracks en GitHub; este formulario no sube archivos.
+          - name: mapUrl
+            label: Enlace al recorrido
+            component: enlace-https
+          - name: provisional
+            component: provisional
+      - name: locations
+        label: Lugares y puntos de encuentro
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        description: No borres ni cambies el ID de un lugar usado por una actividad sin actualizar primero esa actividad.
+        fields:
+          - name: id
+            component: identificador
+          - name: name
+            label: Nombre del lugar
+            type: string
+            required: true
+          - name: description
+            component: descripcion
+          - name: address
+            label: Dirección o indicaciones
+            type: text
+          - name: mapUrl
+            label: Enlace de Google Maps
+            component: enlace-https
+          - name: icon
+            label: Icono
+            type: select
+            required: true
+            default: pin
+            options:
+              values:
+                - name: bed
+                  label: Alojamiento
+                - name: swim
+                  label: Natación
+                - name: run
+                  label: Running
+                - name: pin
+                  label: Punto de encuentro
+                - name: bike
+                  label: Ciclismo
+          - name: provisional
+            component: provisional
+
+components:
+  identificador:
+    label: Identificador
+    type: string
+    required: true
+    pattern:
+      regex: "^[a-z0-9-]+$"
+      message: Usa letras minúsculas sin acentos, números y guiones; no uses espacios.
+    description: Único dentro de esta lista. No es el nombre visible.
+  descripcion:
+    label: Descripción
+    type: text
+    required: true
+  disciplina:
+    label: Disciplina
+    type: select
+    default: ""
+    options:
+      placeholder: Pendiente de confirmar
+      values:
+        - Natación
+        - Ciclismo
+        - Running
+        - Triatlón
+        - Comida
+        - Descanso
+        - Organización
+  provisional:
+    label: Información provisional
+    type: boolean
+    required: true
+    default: true
+    description: Desactívalo solo cuando la información esté confirmada.
+  enlace-https:
+    label: Enlace HTTPS
+    type: string
+    pattern:
+      regex: '^(https://[^\s\\]+)?$'
+      message: Usa una URL completa que empiece por https://, sin espacios.
+    description: Vacío si está pendiente. La app comprueba también que la URL sea válida.
+
+settings:
+  content:
+    merge: true
