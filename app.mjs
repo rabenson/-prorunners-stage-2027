@@ -1,5 +1,5 @@
 import {
-  validateData, getActivities, getNextActivity, formatTime, formatDate,
+  parseData, getActivities, getNextActivity, formatTime, formatDate,
   hasPendingData, LOCATION_ICONS
 } from "./core.mjs";
 
@@ -331,7 +331,7 @@ async function loadData() {
       cache: "no-store", signal: AbortSignal.timeout(15000)
     });
     if (!response.ok) throw new Error(`No se pudo leer data/evento.json (HTTP ${response.status}).`);
-    const nextData = validateData(await response.json());
+    const nextData = parseData(await response.json());
     const json = JSON.stringify(nextData);
     if (serializedData !== json) {
       data = nextData;

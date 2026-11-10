@@ -118,6 +118,39 @@ export function validateData(data) {
   return data;
 }
 
+export function parseData(input) {
+  const data = structuredClone(input);
+  // Pages CMS omite escalares vacíos y listas vacías al guardar JSON.
+  function normalize(object, nullable = [], lists = []) {
+    if (!object || typeof object !== "object" || Array.isArray(object)) return;
+    for (const key of nullable) {
+      if (object[key] === undefined || object[key] === "") object[key] = null;
+    }
+    for (const key of lists) {
+      if (object[key] === undefined) object[key] = [];
+    }
+  }
+  normalize(data, ["notice"], ["rooms", "routes", "locations"]);
+  if (Array.isArray(data?.locations)) {
+    for (const location of data.locations) normalize(location, ["address", "mapUrl"]);
+  }
+  if (Array.isArray(data?.days)) {
+    for (const day of data.days) {
+      normalize(day, [], ["activities"]);
+      if (Array.isArray(day?.activities)) {
+        for (const activity of day.activities) normalize(activity, ["start", "discipline", "locationId"]);
+      }
+    }
+  }
+  if (Array.isArray(data?.rooms)) {
+    for (const room of data.rooms) normalize(room, ["capacity", "notes"], ["occupants"]);
+  }
+  if (Array.isArray(data?.routes)) {
+    for (const route of data.routes) normalize(route, ["distanceKm", "elevationM", "trackUrl", "mapUrl"]);
+  }
+  return validateData(data);
+}
+
 export function getActivities(data) {
   return data.days.flatMap(day => day.activities.map(activity => ({
     ...activity,
